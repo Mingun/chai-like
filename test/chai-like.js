@@ -310,5 +310,12 @@ describe('chai-like', function() {
         check(actual, { some: 'prop' });
       }
     });
+
+    it('it works', function() {
+      let expected = require('./expected.json');
+      let actual   = require('./actual.json');
+
+      actual.should.like(expected);
+    });
   });
 });

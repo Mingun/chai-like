@@ -1,6 +1,7 @@
 'use strict';
 
 const chai = require('chai');
+const AssertionError = require('assertion-error');
 const like = require('../index');
 chai.should();
 chai.use(like);
@@ -289,6 +290,25 @@ describe('chai-like', function() {
       products: [{
         name: 'product1'
       }]
+    });
+  });
+
+  describe('diff', function() {
+    function check(actual, expected) {
+      expect(() => actual.should.like(expected))
+        .to.throw(AssertionError)
+        .to.have.property('diff');
+    }
+    it('AssertionError should have `diff` property', function() {
+      for (let actual of ['a', ['a'], { a: 'b' }]) {
+        check(actual);
+        check(actual, null);
+        check(actual, true);
+        check(actual, false);
+        check(actual, 'b');
+        check(actual, []);
+        check(actual, { some: 'prop' });
+      }
     });
   });
 });

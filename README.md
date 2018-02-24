@@ -115,6 +115,32 @@ object.should.not.like({
 });
 ```
 
+## Differencies
+
+If optional dependences are installed, then the library adds the `diff` property
+containing differences in the structured format of the expected value from actual
+to an `AssertionError` object:
+
+```js
+{
+  // Object compatible with the result of the `JsDiff.structuredPatch` function
+  unified: {
+    hunks: [{
+      oldStart: 1, oldLines: 3, newStart: 1, newLines: 3,
+      lines: [' line2', ' line3', '-line4', '+line5', '\\ No newline at end of file'],
+    }]
+  },
+  // Object compatible with the result of the `JsDiff.diffWordsWithSpace` function
+  inline: [{
+    added: truely or falsely value,
+    removed: truely or falsely value,
+    value: 'text',
+  }]
+}
+```
+
+*Note: for now plugins can not customize diff*
+
 ## Plugins
 
 You can extend chai-like with plugins as below format:
